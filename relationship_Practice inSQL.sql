@@ -118,6 +118,8 @@ To disable safe mode, toggle the option in Preferences -> SQL Editor and reconne
     right join
     customers
     on orders.cust_id=customers.cust_id;
+    
+    select*from customers;
    
 
    
