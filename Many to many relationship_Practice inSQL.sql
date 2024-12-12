@@ -103,6 +103,7 @@ CREATE TABLE students(
   from inst_info
   group by student_name with ROLLUP;
   
+  select * from students;
   
   
   
