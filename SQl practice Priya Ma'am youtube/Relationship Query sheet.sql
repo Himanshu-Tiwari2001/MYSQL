@@ -1,11 +1,11 @@
-SHOW TABLES
+SHOW TABLES;
 
-SELECT* FROM Learners
+SELECT* FROM Learners;
 
 -- count the number of sudents who joined the courses via linkdin .youtube , commumity
 SELECT sourceOfJoining, COUNT(*) as num_of_students
 FROM Learners
-GROUP BY SourceOfJoining
+GROUP BY SourceOfJoining;
 
 -- Grouping via sourcejoining and the location 
 
@@ -15,7 +15,7 @@ GROUP BY SourceOfJoining,location;
 
 -- corresponding to each courses how many students have enrolled 
 
-SELECT*FROM Courses
+SELECT*FROM Courses;
 
 SELECT selectedCourses , COUNT(*) AS num_of_students
 FROM Learners

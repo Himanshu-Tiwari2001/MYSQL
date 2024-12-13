@@ -1,7 +1,7 @@
-SHOW DATABASES
-USE  techforallwithpriya
-SHOW TABLES
-SELECT *FROM employee
+SHOW DATABASES;
+USE  techforallwithpriya;
+SHOW TABLES;
+SELECT *FROM employee;
 
 CREATE TABLE courses (
 CourseID INT  AUTO_INCREMENT,
@@ -10,14 +10,14 @@ Course_duration_months INT  NOT NULL,
 CourseFee INT NOT NULL,
 PRIMARY KEY(CourseID)
 
-)
-SELECT *FROM Courses
-DESC courses
+);
+SELECT *FROM Courses;
+DESC courses;
 
 INSERT INTO courses ( CourseName,Course_duration_months,CourseFee) VALUES ("The Complete Excel Mstery Course","3","1499");
 INSERT INTO courses ( CourseName,Course_duration_months,CourseFee) VALUES ("DSA for Interview Preparation","2","1499");
 INSERT INTO courses ( CourseName,Course_duration_months,CourseFee) VALUES ("SQl Bootcamp","1","1499");
-SELECT * FROM courses
+SELECT * FROM courses;
 UPDATE courses SET CourseFee="4999" WHERE CourseID=2;
 UPDATE courses SET CourseFee="2999" WHERE CourseID=3;
 
@@ -37,7 +37,7 @@ Location VARCHAR(50) NOT NULL,
 PRIMARY KEY(Learner_Id),
 UNIQUE KEY(LearnerEmailID),
 FOREIGN KEY(SelectedCourses) REFERENCES courses(CourseID));
-DESC Learners
+DESC Learners;
 
 -- insert the dta in learner table
 INSERT INTO Learners(LearnerFirstName,LearnerLastName,LearnerPhoneNo,LearnerEmailID,LearnerEnrollmentDate,SelectedCourses,YearsOfExperience,LearnerCompany,SourceOfJoining,Batch_Start_Date,Location) 
@@ -49,16 +49,16 @@ INSERT INTO Learners(LearnerFirstName,LearnerLastName,LearnerPhoneNo,LearnerEmai
 INSERT INTO Learners(LearnerFirstName,LearnerLastName,LearnerPhoneNo,LearnerEmailID,LearnerEnrollmentDate,SelectedCourses,YearsOfExperience,LearnerCompany,SourceOfJoining,Batch_Start_Date,Location) VALUES("Akhil","George","7689558930", "akhil.george.8743@gmail.com", '2024-03-13', 3, 4, "Accenture", "Community", '2024-03-25', "Bengaluru");
 INSERT INTO Learners(LearnerFirstName,LearnerLastName,LearnerPhoneNo,LearnerEmailID,LearnerEnrollmentDate,SelectedCourses,YearsOfExperience,LearnerCompany,SourceOfJoining,Batch_Start_Date,Location)VALUES("Sidhish","Kumar","6475765443", "sidhishkumar@gmail.com",'2024-01-10', 1, 4, "Meta", "Youtube", '2024-03-29', "Bengaluru");
 INSERT INTO Learners(LearnerFirstName,LearnerLastName,LearnerPhoneNo,LearnerEmailID,LearnerEnrollmentDate,SelectedCourses,YearsOfExperience,LearnerCompany,SourceOfJoining,Batch_Start_Date,Location) VALUES("NagaSai","Sreedhar","9182937061", "saisreedhar2001@gmail.com", '2024-03-17', 3, 4, "TCS", "Community", '2024-03-25', "Mumbai");
-Select* from Learners
+Select* from Learners;
 
 -- Data Analysis [Employee, Course, Learners]
 -- 1. Give me the record of the employee getting highest salary
 SELECT * FROM employee
 ORDER BY Salary DESC
-LIMIT 1
+LIMIT 1;
 
-SELECT MAX(Salary) as max_salary FROM employee
-SELECT MIN(Salary) as min_salary FROM employee
+SELECT MAX(Salary) as max_salary FROM employee;
+SELECT MIN(Salary) as min_salary FROM employee;
 
 SELECT *
 FROM employee
@@ -68,17 +68,17 @@ WHERE Salary = (
     
 );
 
-SELECT * FROM employee
+SELECT * FROM employee;
 
 -- 2. Give me the record of the employee getting highest salary and age is bigger than 30
 SELECT * FROM employee 
 WHERE age > 30 
 ORDER BY Salary DESC 
-LIMIT 1
+LIMIT 1;
 
 -- 3. Display the number of enrollments in the webiste of techforallwithpriya
 SELECT COUNT(*) as num_of_enrollments 
-FROM Learners
+FROM Learners;
 
 -- 4. Display the number of enrollments for the courseid = 3[SQL Bootcamp]
 SELECT COUNT(*) AS num_of_learners_SQL
@@ -88,14 +88,14 @@ WHERE SelectedCourses=3 ;
 -- 5. Count the number of learners enrolled in the month of Jan
 -- '2024-02-29'
 SELECT COUNT(*) as num_learners_jan FROM Learners
-WHERE LearnerEnrollmentDate LIKE '%-01-21%'
+WHERE LearnerEnrollmentDate LIKE '%-01-21%';
 
 -- 6. Update the Jeevan data with years of experience as 1 and learner company as "Amazon"
 Update Learners 
 SET YearsOfExperience = 2, LearnerCompany = 'Amazon' 
-WHERE Learner_Id = 4
+WHERE Learner_Id = 4;
 
-SELECT * FROM Learners
+SELECT * FROM Learners;
 
 
 
@@ -103,7 +103,7 @@ SELECT * FROM Learners
 -- Count -> count the non null entries
 -- Unique count of the companies
 SELECT COUNT(DISTINCT LearnerCompany) as distinct_companies 
-FROM Learners
+FROM Learners;
 
 
 
