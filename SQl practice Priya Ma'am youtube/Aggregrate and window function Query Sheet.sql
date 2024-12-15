@@ -29,7 +29,7 @@ FROM employee;
 
 -- Interview Question : Difference between ROW_NUMBER(), VS RANK(), VS DENSE_RANK() 
 -- IF there is no dublicate entries all  ROW_NUMBER(), VS RANK(), VS DENSE_RANK()  return same answer so use according to the situation
-
+ -- Row_Number() is always used with with order by bcz it always  mapped the  shorted value with number 
 SELECT FirstName,LastName,salary,
 Row_NUMBER() OVER (ORDER BY salary DESC) AS Priority_EMP
 FROM employee ;

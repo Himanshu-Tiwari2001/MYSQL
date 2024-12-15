@@ -129,8 +129,33 @@ where city="Paris";
  where grade is null ;
  
  -- Q11] ---> • Find the total purchase amount of all orders.
- select   customer_id ,sum(purch_amt) as "Total purchase Amount"  from order_table
+ select   customer_id , sum(purch_amt) as "Total purchase Amount"  from order_table
  group by customer_id;
+ 
+ -- answer along with customer name as well 
+ SELECT 
+    customer.customer_name,
+    customer.customer_id,
+    SUM(order_table.purch_amt) AS "Total Purchase Amount"
+FROM customer 
+JOIN  order_table 
+ON  customer.customer_id = order_table.customer_id
+GROUP BY  customer.customer_id, customer.customer_name;
+
+
+-- Below "o" and "c" work as  short form for customer table and order table which shorten the length of query;
+SELECT 
+    c.customer_name,
+    c.customer_id,
+    SUM(o.purch_amt) AS "Total Purchase Amount"
+FROM customer c
+JOIN  order_table o
+ON  c.customer_id = o.customer_id
+GROUP BY  c.customer_id, c.customer_name;
+ 
+
+
+ 
  
  -- Q12]----> • Find the number of salesman currently listing for all of their customers.
  SELECT COUNT(salesman_id)
@@ -139,37 +164,68 @@ where city="Paris";
  SELECT DISTINCT COUNT( salesman_id)
  FROM order_table;
  
+ 
  -- Q 13 Find the highest grade for each of the cities of the customers.
 SELECT city, MAX(grade) As "Maximum Grade"
 FROM customer
 GROUP BY city;
 
+-- Q14]---> • Find the highest purchase amount ordered by the each customer with their ID and highest purchase amount.
 
--- Question related to multiple column ||| Multiple tables Joins Nested Queries
+select customer_id ,max(purch_amt)
+from order_table
+group by customer_id;
 
--- Q14 ]---> • Find the name and city of those customers and salesmen who lives in the same city.
-   select c.customer_name, s.name as "Salesman Name" ,s.city
-   from customer  c ,  salesman s 
-   where c.city =s.city;
-   
-   -- Q15 ]---> •Find the names of all customers along with the salesmen who works for them.
-   SELECT customer.customer_name ,salesman.name
-   FROM customer salesman
-   WHERE salesman.salesman_id = customer.salesman_id;
-   
-   -- Q16]---->  Display all those orders by the customers not located in the same cities where their salesmen live.
-    
-    
-         
-     
+-- now result with customer name also so for this we will have to use join ;
+select c.customer_name ,
+c.customer_id,
+max(o.purch_amt) as "Max purchase amount"
+from customer c 
+join
+order_table o
+on c.customer_id =o.customer_id
+group by c.customer_id ,o.customer_id ;
+
+
+-- Q15 ---> • Find the highest purchase amount ordered by the each customer on a particular date with their ID, order date and highest purchase amount.
+
+ select 
+ c.customer_id,
+ c.customer_name as " Customer Name",
+ o.order_date as "Order Date ",
+ max(o.purch_amt)  as "Max purchase amount"
+ from customer c
+ join order_table o
+ on c.customer_id =o.customer_id
+ group by o.order_date, c.customer_id ,o.customer_id;
+
+
+-- Q16]---->• Find the highest purchase amount on a date '2012-08-17' for each salesman with their ID.
+SELECT salesman_id, MAX(purch_amt)
+FROM order_table
+WHERE order_date = '2016-08-17'
+GROUP BY salesman_id;
+
+
+-- Q 17 Find the highest purchase amount with their customer ID and order date, for only those customers who have the highest purchase amount in a day is more than 2000.
+
+SELECT customer_id, order_date, MAX(purch_amt)
+FROM order_table
+GROUP BY customer_id, order_date
+HAVING MAX(purch_amt) > 2000.00;
+
+-- Q18 ]• Write a SQL statement that counts all orders for a date August 17th, 2016.
+SELECT COUNT(*) as "Count of orders"
+FROM order_table
+WHERE order_date = '2016-08-17';
 
  
   
   
   
-
-
 -- ✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️✴️
+-- using another table
+
 -- Create the nobel_win  table;
 CREATE TABLE nobel_win (
     year INT,
@@ -213,13 +269,15 @@ INSERT INTO nobel_win (year, subject, winner, country, category) VALUES
 (2018, 'Literature', 'Olga Tokarczuk', 'Poland', 'Narrative Imagination That Crosses Boundaries');
 
 -- Q1 ---> • Show the winner of the 2023 prize for Literature.
-
 select * from nobel_win
 where subject ="Literature" AND year=2023;
+
+
 
 -- Q2----> Show all the details of the winners with first name start with A.
 select * from nobel_win 
 where winner like "A%";
+
 
 -- Q3 ---> Show all the winners in Physics for 2023 together with the winner of Chemistry for 2020.
  Select *  from nobel_win 
@@ -228,9 +286,13 @@ where winner like "A%";
  Select *  from nobel_win 
  where subject ="Chemistry" And year=2020;
  
+ 
+ 
  -- Q4----> • Show all the winners of Nobel prize in the year 2023 except the subject Physics and chemistry.
  select * from nobel_win 
  where subject not in ("Physics","Chemistry") AND Year =2023;
+ 
+ 
  
   -- Q5 ----> • Find all the details of the Nobel winners for the subject not started with the letter 'P' and arranged
 -- the list as the most recent comes first, then by name in order
@@ -238,6 +300,7 @@ where winner like "A%";
 select * from nobel_win
 where subject not like "M%"
 order by year desc, winner asc;
+
 
 
 

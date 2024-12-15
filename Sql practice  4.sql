@@ -1,5 +1,5 @@
-Create database employee
-USE employee
+Create database employee;
+USE employee;
 CREATE TABLE empdetail(
 emp_id INT NOT NULL PRIMARY KEY auto_increment,
 fname varchar(20) not null ,
@@ -102,6 +102,125 @@ update BLOG
 set blog ="This is my second blog from india";
 
 
+-- operator in sql (<,>,<=,>=,!=,=)
+select * from empdetail;
+
+select * from empdetail
+where salary<65000;
+
+select* from empdetail
+where salary >=52000;
+
+select* from empdetail
+where salary <=52000;
+
+select* from empdetail
+where salary !=52000;
+
+
+-- logical operation in sql(AND / OR)
+select* from empdetail
+where salary=50000 and dept="loan";
+
+select* from empdetail
+where salary=50000 or dept="loan";
+
+-- use of IN /NOT IN
+
+select * from empdetail 
+where dept in("Account","Cash","Loan");
+
+select * from empdetail 
+where dept not in("Account","Cash","Loan");
+
+-- use of between
+select * from empdetail
+where salary between 25000 and 65000;
+
+-- use case in sql 
+select fname ,salary ,
+CASE 
+when salary>55000 then "Higher Salary "
+else "Low Salary"
+End as "Salary Category"
+from empdetail;
+
+
+select fname ,lname ,salary,
+case 
+when salary <52000 then "average salary"
+else "Good Salary"
+end as "Salary division"
+from empdetail;
+
+select fname ,lname ,salary,
+case 
+when salary >=60000 then "High Salary"
+when salary < 60000 and salary >=52000 then "Average Salry"
+else "Low Salary"
+end as "Salary division"
+from empdetail;
+
+-- use of 
+select * from empdetail 
+where fname is null;
+
+-- use of NOT LIKE
+select * from empdetail
+where fname NOT LIKE "A%";
+
+
+ SELECT fname, Salary ,
+ case
+ when salary!=0 then salary/80
+ end as "Salary in dollar"
+ from empdetail;
+ 
+-- use of unique and check 
+create table mobile_no (
+mob varchar(15) unique check(length(mob)>=10)
+);
+desc mobile_no;
+insert into mobile_no values ("1234567890");
+insert into mobile_no values ("1234552678");
+insert into mobile_no values ("7890526780");
+INSERT INTO mobile_no values("123456789110");
+select * from mobile_no;
+
+-- alter any table -->  add column
+alter table mobile_no
+add COLUMN name VARCHAR(50);
+desc mobile_no;
+select * from mobile_no;
+
+-- alter any table --> drop column
+alter table mobile_no
+drop column name;
+desc mobile_no;
+
+-- use of alter to rename a column name 
+-- alter TABLE mobile_no
+-- rename column mob to Contact_Number;
+-- desc mobile_no; here 0	168	02:16:53	alter TABLE mobile_no
+-- rename column mob to Contact_Number	Error Code: 3959. Check constraint 'mobile_no_chk_1' uses column 'mob', hence column cannot be dropped or renamed.	0.000 sec
+
+alter table empdetail 
+rename column dept to department;
+select * from empdetail;
+
+-- use of alter to rename the table name 
+
+alter table mobile_no
+rename to Contact_details;
+desc contact_details;
+
+-- other way to rename the table name 
+ -- rename table  table name to new name 
+
+-- how to add default value to any column of existing table
+ alter table  contact_details
+ modify mob VARCHAR(20) default "Unknown";
+ desc contact_details;
 
 
 
